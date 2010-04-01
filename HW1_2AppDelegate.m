@@ -47,18 +47,32 @@ const int kImageCount = 500;
 	start = mach_absolute_time();
 	
 	// fill up the image view
+    
+    // SB added
+    NSString* imagePath = [[NSBundle mainBundle] pathForImageResource:@"image.jpg"];
+    NSData* imageData = [NSData dataWithContentsOfFile:imagePath options:NSUncachedRead error:nil];
+    NSImage* sampleImage = [[NSImage alloc] initWithData:imageData];
+    
 	
 	for (int i = 0; i < kImageCount; i++) 
 	{
-		NSString* imagePath = [[NSBundle mainBundle] pathForImageResource:@"image.jpg"];
-		NSData* imageData = [NSData dataWithContentsOfFile:imagePath options:NSUncachedRead error:nil];
-		NSImage* sampleImage = [[NSImage alloc] initWithData:imageData];
+//		NSString* imagePath = [[NSBundle mainBundle] pathForImageResource:@"image.jpg"];
+//		NSData* imageData = [NSData dataWithContentsOfFile:imagePath options:NSUncachedRead error:nil];
+//        
+//		// Shark showed initWithData took a lot of time.
+//        NSImage* sampleImage = [[NSImage alloc] initWithData:imageData];
+        
+        // we could take this out of the loop, if it's ok to reuse the same imageUID for each picture
 		NSString* imageUID = [NSString stringWithFormat:@"%d", i];
+        
 		SimpleImage* image = [[[SimpleImage alloc] initWithImage:sampleImage andImageUID:imageUID] autorelease];		
-		[sampleImage release];
+//		[sampleImage release];
 		[images_ addObject:image];
 	}
 	
+    // SB added
+    [sampleImage release];
+
 	
 	end = mach_absolute_time();
 	
