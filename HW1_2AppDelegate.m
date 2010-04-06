@@ -102,7 +102,4 @@ const int kImageCount = 500;
 	return [images_ objectAtIndex:index];
 }
 
-
-
-
 @end
